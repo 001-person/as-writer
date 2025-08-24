@@ -21,10 +21,26 @@ export default {
   },
   provide() {
     // Provide the book_path and settings to child components
-    return {
-      bookPath: computed(() => this.book_path),
-      Settings: computed(() => this.settings),
+    const base_config = {
+      bookPath: this.book_path,
+      Settings: this.settings
     };
+
+    this.$watch(
+      () => this.book_path,
+      (newVal) => {
+        base_config.bookPath = newVal;
+      }
+    );
+
+    this.$watch(
+      () => this.settings,
+      (newVal) => {
+        base_config.Settings = newVal;
+      }
+    );
+
+      return {base_config};
   },
 
   async mounted() {

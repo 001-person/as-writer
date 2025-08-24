@@ -85,7 +85,7 @@ export default {
     left_area
   },
 
-  inject: ['startTime', 'startData', 'bookPath'],
+  inject: ['startTime', 'startData', 'base_config'],
 
   data() {
     return {
@@ -115,7 +115,7 @@ export default {
           children:[]
         },
       ], // 目录
-      bookpath:this.bookPath,
+      bookpath:this.base_config.bookPath,
       
       export_type:'txt',
       current_id:'0', //当前选中的章节id
@@ -473,7 +473,7 @@ export default {
 
     // 等待 pywebview 初始化完成
     await waitForPywebviewApi();
-    this.bookpath = this.bookPath;
+    this.bookpath = this.base_config.bookPath;
     this.$nextTick(() => {
       // 在 $nextTick 中获取宽度确保在 DOM 更新之后
       this.handleResize();

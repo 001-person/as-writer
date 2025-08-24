@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import os
+import sys, os
 import json
 from tkinter import filedialog
 import tkinter as tk
@@ -33,8 +33,11 @@ class API():
         self._window.destroy()
     
     def get_bookConfig(self):
-
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        if getattr(sys, 'frozen', False):
+            # PyInstaller 打包
+            BASE_DIR = os.path.dirname(sys.executable)
+        else:
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         
         path = os.path.join(BASE_DIR, 'appConfig.json')
         if os.path.exists(path):
@@ -45,7 +48,18 @@ class API():
                 current_setting = setting.get(config.get('currentSetting', '0'), None)
                 return {"path":path, "current_setting":current_setting}
         else:
-            return {"path":None, "current_setting":None}
+            # 如果不存在配置文件，就创建一个默认的
+            default_config = {
+                "bookPath": "",
+                "currentSetting": "0",
+                "settings": {
+                    "0": {}
+                }
+            }
+            with open(path, 'w', encoding='utf-8') as file:
+                json.dump(default_config, file, ensure_ascii=False, indent=4)
+
+            return {"path":"", "current_setting":"0"}
     
     def create_book_path(self):
         """
@@ -58,7 +72,11 @@ class API():
                 # 检查是否为目录
                 if os.path.isdir(folder_path[0]):
                     # 保存路径到配置文件
-                    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+                    if getattr(sys, 'frozen', False):
+                        # 打包后
+                        BASE_DIR = os.path.dirname(sys.executable)
+                    else:
+                        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
                     config_path = os.path.join(BASE_DIR, 'appConfig.json')
                     # 1. 读取
                     with open(config_path, 'r', encoding='utf-8') as f:

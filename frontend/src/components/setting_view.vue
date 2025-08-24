@@ -78,7 +78,7 @@ import { waitForPywebviewApi} from '../customFuncs.js'
 
     export default {
 
-      inject: ['bookPath', 'Settings'],
+      inject: ['base_config'],
 
         data() {
         return {
@@ -86,14 +86,15 @@ import { waitForPywebviewApi} from '../customFuncs.js'
             dialog_help: false,
             dialog_about: false,
             dialog_setting: false,
-            book_path: this.bookPath,
-            settings: this.Settings
+            book_path: '',
+            settings: '0'
         };
         },
 
         async mounted() {
           await waitForPywebviewApi();
-          
+          this.book_path = this.base_config.bookPath;
+          this.settings = this.base_config.Settings;
         },
 
         methods: {
@@ -104,8 +105,8 @@ import { waitForPywebviewApi} from '../customFuncs.js'
           },
           open_setting() {
             this.dialog_setting = true;
-            this.book_path = this.bookPath;
-            this.settings = this.Settings;
+            this.book_path = this.base_config.bookPath;
+            this.settings = this.base_config.Settings;
           
           },
           select_book_path() {

@@ -41,7 +41,7 @@
       BookView,
     },
 
-    inject: ['bookPath', 'Settings'],
+    inject: ['base_config'],
       data() {
         return {
           isopen: false,
@@ -70,8 +70,8 @@
 
         // 等待 pywebview 初始化完成
         await waitForPywebviewApi();
-        await waitbookpathinit(this.bookPath);
-        this.book_path = this.bookPath;
+        await waitbookpathinit(this.base_config);
+        this.book_path = this.base_config.bookPath;
         console.log("mout book_path is:");
         console.log(this.book_path);
         await this.load_books_surface_data();
@@ -80,6 +80,7 @@
         this.selected_books = this.books_surface_data;
 
         const eventBus = useEventBusStore();
+        eventBus.on('select_book_path', this.sel_book_path);
         eventBus.on('update_book_info',this.update_bookInfo);
 
         eventBus.on('new_book_data',this.create_book_done);
@@ -99,6 +100,12 @@
         eventBus.on('save-book-info',this.upgrade_book_info);
       },
       methods: {
+
+        sel_book_path(path) {
+          this.book_path = path;
+          console.log("writeshelf选择的书籍路径bookPath为：", this.base_config.bookPath);
+          console.log("writeshelf选择的书籍路径为：", this.book_path);
+        },
 
         upgrade_book_info(bookdata){
           const index = this.books_surface_data.findIndex(book => String(book.book_id) === bookdata[0]);
@@ -484,7 +491,7 @@
 
 
           this.book_tags = this.tags_to_books.map(item => item.tag);
-          this.book_path =  this.bookPath;
+          this.book_path =  this.base_config.bookPath;
           console.log("new book_path is:", this.book_path);
           const bookData = [this.book_path, this.books_surface_data, this.tags_to_books];
           window.pywebview.api.create_new_book(bookData).then(res => {

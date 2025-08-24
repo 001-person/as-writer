@@ -10,16 +10,16 @@ export function intersection(setA, setB) {
     return _intersection;
 }
 
-export function waitbookpathinit(bookpath) {
+export function waitbookpathinit(baseConfig) {
     return new Promise(resolve => {
       const check = () => {
-        if (bookpath && bookpath !== '') {
-          console.log("cus bookpath is:",bookpath);
-          resolve(bookpath);
+        if (baseConfig && baseConfig.bookPath !== '') {
+          console.log("cus bookpath is:",baseConfig.bookPath);
+          resolve(baseConfig);
         } else {
           setTimeout(() => check(), 100); // 每隔100毫秒检查一次
           console.log('等待中。。')
-          console.log('wait bookpath:',bookpath)
+          console.log('wait bookpath:',baseConfig.bookPath)
         }
       };
       check();
