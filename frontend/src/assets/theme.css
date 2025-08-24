@@ -1,0 +1,59 @@
+/* 默认主题色 */
+:root {
+    --color-text: rgba(0, 0, 0, 0.65);
+    --color-high-text: #ff5777;
+    --color-tint: #ff8190;
+    --color-background-bottom-layer: rgb(255, 255, 255);
+    --color-background-header: rgba(0, 0, 0, 0);
+    --color-background-mainview: rgba(80, 231, 231, 0.6);
+    --font-size: 14px;
+    --line-height: 1.5;
+}
+
+/* 白色主题色 */
+html[data-theme="light"] {
+    --color-text: rgba(0, 0, 0, 0.65);
+    --color-high-text: #ff5777;
+    --color-tint: #ff8190;
+    --color-background-bottom-layer: rgba(255, 255, 255, 1);
+    --color-background-mainview: rgb(255, 255, 255);
+    --color-background-mainview-shelf: rgb(240, 240, 240);
+
+    
+    --menu-bg-color: rgb(240, 240, 240);
+    --menu-font-color: rgb(50, 50, 50);
+    --submenu-bg-color: rgb(240, 240, 240);
+    --submenu-font-color: rgb(50, 50, 50);
+    --hover-bg-color: rgb(220, 220, 220); /* 悬浮背景颜色 */
+    --hover-font-color: rgb(0, 0, 0);  /* 悬浮字体颜色 */
+
+    --writeview-left-bg-color: rgb(240, 240, 240);
+    --writeview-right-dataarea-bg-color: rgb(240, 240, 240);
+    --writeview-right-pluginarea-bg-color: rgb(240, 240, 240);
+
+
+    --font-size: 14px;
+    --line-height: 1.5;
+}
+
+/* 黑色主题色 */
+html[data-theme="dark"] {
+    --color-text: rgba(255, 255, 255, 0.65);
+    --color-high-text: #ff5777;
+    --color-tint: #ff8190;
+    --color-background-bottom-layer: rgba(0, 0, 0, 1);
+    
+    --color-background-mainview: rgb(30, 30, 30);
+
+
+    --menu-bg-color: rgb(30, 30, 30);
+    --menu-font-color: rgb(220, 220, 220);
+    --submenu-bg-color: rgb(30, 30, 30);
+    --submenu-font-color: rgb(220, 220, 220);
+    --hover-bg-color: rgb(50, 50, 50); /* 悬浮背景颜色 */
+    --hover-font-color: rgb(255, 255, 255);  /* 悬浮字体颜色 */
+
+
+    --font-size: 14px;
+    --line-height: 1.5;
+}

@@ -1,0 +1,21 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "001-person",email = "3313808596@qq.com"}
+]
+readme = "README.md"
+requires-python = "^3.10"
+dependencies = [
+    "ebooklib (>=0.19,<0.20)",
+    "bs4 (>=0.0.2,<0.0.3)",
+]
+
+[tool.poetry]
+packages = [{include = "backend", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

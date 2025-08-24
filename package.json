@@ -1,0 +1,9 @@
+{
+  "name": "myapp",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "dev": "concurrently -k \"pnpm --filter ./frontend dev\" \"python backend/src/backend/main.py\""
+  }
+}
