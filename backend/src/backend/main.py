@@ -40,7 +40,7 @@ def WebViewApp():
         base_path = os.path.dirname(os.path.abspath(__file__))
         os.chdir(base_path)  # 设置工作路径为脚本所在目录
 
-    is_dev = False
+    is_dev = True 
     # 视图层页面URL
     if is_dev:
         # 开发环境
@@ -57,7 +57,7 @@ def WebViewApp():
     window.events.loaded += on_loaded
     window.events.closing += on_closing
 
-    api.set_window(window)
+    api.set_window(window)   # 传递窗口对象到 API 类
     # 启动窗口
     if is_dev:
         # 开发环境

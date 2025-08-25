@@ -13,6 +13,7 @@ export default {
   },
   data() {
     return {
+      showConfirm: false,
       setting_collapse: true,
       menu_height:'auto',
       book_path: '',
@@ -52,16 +53,26 @@ export default {
     console.log("moutapp book_path is:");
     console.log(this.book_path);
 
+    // 监听浏览器关闭事件（右上角叉号）
+    window.addEventListener("beforeunload", (e) => {
+      // 弹出确认对话框
+      e.preventDefault();
+      this.tryExit();
+      // Chrome 兼容性需要设置 returnValue
+      e.returnValue = '';
+    });
+
     // 事件总线初始化
     const eventBus = useEventBusStore();
     eventBus.on('select_book_path', this.sel_book_path);
-     
+    eventBus.on('exitApp', this.tryExit);
   },
 
   beforeUnmount() {
     // 清理事件总线监听
     const eventBus = useEventBusStore();
     eventBus.off('select_book_path', this.sel_book_path);
+    eventBus.off('exitApp', this.tryExit);
   },
 
   methods: {
@@ -96,6 +107,17 @@ export default {
       }
 
     },
+
+    tryExit() {
+      this.showConfirm = true;
+    },
+
+    async confirmExit() {
+      this.showConfirm = false;
+      if (window.pywebview?.api?.exit_app) {
+        await window.pywebview.api.exit_app();
+      }
+    },
   }
 
 }
@@ -110,6 +132,23 @@ export default {
       <setting_view id="menu_view"/>
     </div>
     <HelloWorld class="hello" />
+
+    <!-- 确认对话框 -->
+    <el-dialog
+      v-model="showConfirm"
+      title="提示"
+      width="30%"
+      :close-on-click-modal="false"
+      :show-close="false"
+    >
+      <span>请确保当前工作已保存，确定退出应用吗？</span>
+      <template #footer>
+        <el-button @click="showConfirm = false">取消</el-button>
+        <el-button type="primary" @click="confirmExit">确定</el-button>
+      </template>
+    </el-dialog>
+
+
   </div>
 </template>
 

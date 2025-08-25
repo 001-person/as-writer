@@ -26,11 +26,12 @@ class API():
             raise AttributeError()
         return super().__getattribute__(name)
 
-    def exitApp(self):
+    def exit_app(self):
         """
         退出程序
         """
         self._window.destroy()
+        sys.exit(0)
     
     def get_bookConfig(self):
         if getattr(sys, 'frozen', False):

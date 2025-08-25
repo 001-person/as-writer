@@ -64,7 +64,7 @@
     <ul>
       <li>版本号: 1.0.0 </li>
       <li>本软件遵循<a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank">AGPL</a>开源协议</li>
-      <li>访问github获取<a href="https://github.com/001-person/BookHub" target="_blank">源代码</a></li>
+      <li>访问github获取<a href="https://github.com/001-person/as-writer" target="_blank">源代码</a></li>
     </ul>
 
   </el-dialog>
@@ -100,7 +100,8 @@ import { waitForPywebviewApi} from '../customFuncs.js'
         methods: {
 
           exit_app() {
-            window.pywebview.api.exitApp();
+            const eventBus = useEventBusStore();
+            eventBus.emit('exitApp');
               
           },
           open_setting() {
